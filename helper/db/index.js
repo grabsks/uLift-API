@@ -11,7 +11,7 @@ class DataBase{
 
     }
 
-    Connect(){
+    connect(){
         const sequelize = new Sequelize(this.database, this.user, this.password, {
             host: this.host,
             dialect:'mysql'
