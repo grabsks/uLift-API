@@ -4,6 +4,7 @@ class College extends Model {
   static init(sequelize){
     super.init(
       {
+       name: Sequelize.STRING, 
        street: Sequelize.STRING,
        neighborhood: Sequelize.STRING,
        city: Sequelize.STRING,
