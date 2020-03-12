@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import Hello from '../handler/hello'
+import Hello from '../controller/hello'
 
 const routes = new Router();
 
