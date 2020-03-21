@@ -5,6 +5,7 @@ module.exports = {
               type: Sequelize.INTEGER,
               primaryKey: true,
               allowNull: false,
+              autoIncrement:true,
           },
 
           ra: {
@@ -29,7 +30,7 @@ module.exports = {
 
           verified_at: {
               type: Sequelize.DATE,
-              allowNull: false,
+              allowNull: true,
           },
 
           created_at: {
