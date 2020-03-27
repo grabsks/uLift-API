@@ -11,6 +11,8 @@ class User extends Model {
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
         verified_at: Sequelize.DATE,
+        cpf: Sequelize.STRING,
+        phone: Sequelize.STRING,
       },
       {
         sequelize
