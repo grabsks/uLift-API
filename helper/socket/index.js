@@ -1,11 +1,10 @@
-import app from '../../app';
-var io = require('socket.io')(app);
+var io = require('socket.io')(4000);
 var user_id = [];
 console.log("test")
 
+
 io.on("connection", function(socket){
     socket.on("login", function(id, callback){
-        //socket = io('http://localhost:3000/');
 
         if(!(id in user_id)){
 
@@ -33,5 +32,6 @@ io.on("connection", function(socket){
     });
     socket.on("lift_request", function(request, callback){
         
-    })
+    });
+	
 });
