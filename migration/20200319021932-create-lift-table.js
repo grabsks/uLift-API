@@ -1,8 +1,6 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('lifts', {
+    return queryInterface.createTable("lifts", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -11,7 +9,7 @@ module.exports = {
 
       score: {
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: true,
       },
 
       comment: {
@@ -21,23 +19,23 @@ module.exports = {
 
       student_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
+        references: { model: "users", key: "id" },
         primaryKey: true,
-        onUpdate: 'CASCADE',
+        onUpdate: "CASCADE",
       },
 
       driver_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
+        references: { model: "users", key: "id" },
         primaryKey: true,
-        onUpdate: 'CASCADE',
+        onUpdate: "CASCADE",
       },
 
       college_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'colleges', key: 'id' },
+        references: { model: "colleges", key: "id" },
         primaryKey: true,
-        onUpdate: 'CASCADE',
+        onUpdate: "CASCADE",
       },
 
       created_at: {
@@ -52,7 +50,7 @@ module.exports = {
     });
   },
 
-  down: queryInterface => {
-    return queryInterface.dropTable('lifts');
-  }
+  down: (queryInterface) => {
+    return queryInterface.dropTable("lifts");
+  },
 };

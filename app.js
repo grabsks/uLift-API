@@ -1,7 +1,7 @@
-import express from 'express';
+import express from "express";
 
-import routes from './router';
-import './helper/db';
+import routes from "./router";
+import "./helper/db";
 
 class App {
   constructor() {

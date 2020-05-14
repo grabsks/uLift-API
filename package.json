@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./server.js",
-    "lint":  "eslint . ;",
-    "prettier": "eslint --fix . ;"
+    "lint": "eslint .",
+    "prettier": "eslint --fix ."
   },
   "keywords": [],
   "author": "",
