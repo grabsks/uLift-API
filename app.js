@@ -1,9 +1,8 @@
-import express from 'express';
-import cors from 'cors';
+import express from "express";
 
-import routes from './router';
-import './helper/db';
-import './helper/socket';
+import routes from "./router";
+import "./helper/db";
+//import './helper/socket';
 
 class App {
   constructor() {

@@ -3,7 +3,7 @@ import User from "../model/User";
 class UserController {
   async register(request, response) {
     const userExists = await User.findOne({
-      where: { email: request.body.email }
+      where: { email: request.body.email },
     });
 
     if (userExists)
@@ -19,7 +19,7 @@ class UserController {
 
     const user = await User.findOne({
       where: { id },
-      attributes: ["id", "ra", "name", "email"]
+      attributes: ["id", "ra", "name", "email"],
     });
 
     if (!user) response.status(404).json({ error: "Usuário não encontrado" });
