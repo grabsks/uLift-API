@@ -1,26 +1,24 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('files', {
+    return queryInterface.createTable("files", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
       },
 
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
 
       size: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
 
       file_type: {
-        type: Sequelize.ENUM('ra', 'cnh', 'profile'),
+        type: Sequelize.ENUM("ra", "cnh", "profile"),
         allowNull: false,
       },
 
@@ -31,9 +29,9 @@ module.exports = {
 
       user_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        references: { model: "users", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
         allowNull: true,
       },
 
@@ -49,7 +47,7 @@ module.exports = {
     });
   },
 
-  down: queryInterface => {
-    return queryInterface.dropTable('files');
-  }
+  down: (queryInterface) => {
+    return queryInterface.dropTable("files");
+  },
 };
