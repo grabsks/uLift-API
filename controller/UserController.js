@@ -22,7 +22,7 @@ class UserController {
       attributes: ["id", "ra", "name", "email"],
     });
 
-    if (!user) response.status(404).json({ error: "Usuário não encontrado" });
+    if (!user) response.status(404).json({ error: "user not found" });
 
     return response.status(200).json(user);
   }
