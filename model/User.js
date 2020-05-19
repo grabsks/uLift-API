@@ -31,6 +31,10 @@ class User extends Model {
   static associate(models) {
     this.belongsTo(models.College, { foreignKey: "college_id" });
   }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
+  }
 }
 
 export default User;
