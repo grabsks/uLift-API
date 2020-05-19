@@ -3,7 +3,7 @@ import { Router } from "express";
 import UserController from "../controller/UserController";
 import SessionController from "../controller/SessionController";
 
-import authMiddleware from '../middlewares/auth';
+import authMiddleware from "../middlewares/auth";
 
 const routes = new Router();
 
