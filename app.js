@@ -2,18 +2,19 @@ import express from "express";
 
 import routes from "./router";
 import "./helper/db";
-//import './helper/socket';
+import Socket from "./helper/socket";
 
 class App {
   constructor() {
     this.server = express();
     this.middlewares();
-	this.routes();
+    this.routes();
+    this.socket = new Socket();
   }
 
   middlewares() {
     this.server.use(express.json());
-	this.server.use(cors());
+    this.server.use(cors());
   }
 
   routes() {
