@@ -2,12 +2,14 @@ import express from "express";
 
 import routes from "./router";
 import "./helper/db";
+import Socket from "./helper/socket";
 
 class App {
   constructor() {
     this.server = express();
     this.middlewares();
     this.routes();
+    new Socket();
   }
 
   middlewares() {
