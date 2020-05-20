@@ -1,10 +1,9 @@
 var io = require("socket.io")(4000);
 var user_id = [];
-console.log("test");
 
 class Socket {
   constructor() {
-    io.on("connection", function (socket) {
+    io.on("connection", (socket) => {
       socket.on("login", function (id, callback) {
         if (!(id in user_id)) {
           socket.id = id;
