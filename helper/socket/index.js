@@ -1,9 +1,9 @@
 const io = require("socket.io")(4000);
 
-let UserId = [];
-
 class Socket {
   constructor() {
+    let UserId = [];
+
     io.on("connection", (socket) => {
       socket.on("login", (id, callback) => {
         if (!(id in UserId)) {
