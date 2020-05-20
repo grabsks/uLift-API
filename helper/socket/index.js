@@ -1,34 +1,33 @@
-var io = require("socket.io")(4000);
-var user_id = [];
+const io = require("socket.io")(4000);
+
+let UserId = [];
 
 class Socket {
   constructor() {
     io.on("connection", (socket) => {
-      socket.on("login", function (id, callback) {
-        if (!(id in user_id)) {
+      socket.on("login", (id, callback) => {
+        if (!(id in UserId)) {
           socket.id = id;
-          user_id[id] = socket;
+          UserId[id] = socket;
 
-          console.log(id);
-
-          io.sockets.emit("user_update", Object.keys(user_id));
+          io.sockets.emit("user_update", Object.keys(UserId));
 
           callback(true);
         } else {
           callback(false);
         }
       });
-      socket.on("send_message", function (message, callback) {
+      socket.on("send_message", (message, callback) => {
         socket.emit("chat_update", message);
-        user_id[message.To_id].emit("chat_update", message);
+        UserId[message.To_id].emit("chat_update", message);
         callback();
       });
-      socket.on("send_location", function (location, callback) {
+      socket.on("send_location", (location, callback) => {
         io.sockets.emit("location_update", location);
         callback();
       });
-      socket.on("lift_request", function (request, callback) {
-        user_id[request.To_id]("lift_request", request);
+      socket.on("lift_request", (request, callback) => {
+        UserId[request.To_id]("lift_request", request);
         callback();
       });
     });
