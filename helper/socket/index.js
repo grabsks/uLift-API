@@ -28,8 +28,12 @@ class Socket {
         io.sockets.emit("location_update", location);
         callback();
       });
-      socket.on("lift_request", function (request, callback) {});
+      socket.on("lift_request", function (request, callback) {
+        user_id[request.To_id]("lift_request", request);
+        callback();
+      });
     });
   }
 }
+
 export default Socket;
