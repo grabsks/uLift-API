@@ -2,7 +2,7 @@ const io = require("socket.io")(4000);
 
 class Socket {
   constructor() {
-    let UserId = [];
+    const UserId = [];
 
     io.on("connection", (socket) => {
       socket.on("login", (id, callback) => {
