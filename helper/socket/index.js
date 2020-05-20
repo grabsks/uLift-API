@@ -30,7 +30,7 @@ class Socket {
         UserId[request.To_id]("lift_request", request);
         callback();
       });
-      socket.on("disconnect", function () {
+      socket.on("disconnect", () => {
         delete UserId[socket.id];
         io.sockets.emit("user_update", Object.keys(UserId));
       });
