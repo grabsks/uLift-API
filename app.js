@@ -9,7 +9,7 @@ class App {
     this.server = express();
     this.middlewares();
     this.routes();
-    this.socket = new Socket();
+    new Socket();
   }
 
   middlewares() {
