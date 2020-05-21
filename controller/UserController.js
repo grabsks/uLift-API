@@ -1,8 +1,23 @@
+import * as Yup from "yup";
 import User from "../model/User";
 
 class UserController {
   async register(request, response) {
     const { ra, name, email, password, cpf, phone } = request.body;
+
+    const schema = Yup.object().shape({
+      ra: Yup.string().required(),
+      name: Yup.string().required(),
+      email: Yup.string().email().required(),
+      cpf: Yup.string().required(),
+      phone: Yup.number().required(),
+    });
+
+    schema.validate({ ra, name, email, password, cpf, phone }).catch(() => {
+      return response
+        .status(400)
+        .json({ error: "Ocorreu um erro na validação dos dados enviados" });
+    });
 
     const userExists = await User.findOne({
       where: { email },
