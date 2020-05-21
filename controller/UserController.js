@@ -2,35 +2,37 @@ import User from "../model/User";
 
 class UserController {
   async register(request, response) {
+    const { ra, name, email, password, cpf, phone } = request.body;
+
     const userExists = await User.findOne({
-      where: { email: request.body.email },
+      where: { email },
     });
 
     if (userExists) {
-      return response.status(200).json({ error: "usuário já cadastrado" });
+      return response.status(400).json({ error: "usuário já cadastrado" });
     }
 
     if (
-      !/[a-z]/gm.test(request.body.password) ||
-      !/[A-Z]/gm.test(request.body.password) ||
-      !/[0-9]/gm.test(request.body.password) ||
-      !/[@!#$%&*()?:./^~_+-]/gm.test(request.body.password)
+      !/[a-z]/gm.test(password) ||
+      !/[A-Z]/gm.test(password) ||
+      !/[0-9]/gm.test(password) ||
+      !/[@!#$%&*()?:./^~_+-]/gm.test(password)
     ) {
       return response.status(400).json({
         error:
-          "a senha deve conter no mínimo 1 letras maiúscula, 1 letra minúscula, 1 número e 1 caractere especial",
+          "A senha deve conter no mínimo 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial",
       });
     }
 
-    if (request.body.password.length < 8) {
+    if (password.length < 8) {
       return response
         .status(400)
-        .json({ error: "a senha deve conter no mínimo 8 caracteres" });
+        .json({ error: "A senha deve conter no mínimo 8 caracteres" });
     }
 
-    const { id, ra, name, email } = await User.create(request.body);
+    const user = await User.create({ ra, name, email, password, cpf, phone });
 
-    return response.status(201).json({ id, ra, name, email });
+    return response.status(201).json(user);
   }
 
   async search(request, response) {
@@ -41,7 +43,7 @@ class UserController {
       attributes: ["id", "ra", "name", "email"],
     });
 
-    if (!user) response.status(404).json({ error: "user not found" });
+    if (!user) response.status(404).json({ error: "User not found" });
 
     return response.status(200).json(user);
   }
