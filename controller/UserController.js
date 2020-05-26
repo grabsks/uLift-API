@@ -1,4 +1,5 @@
 import User from "../model/User";
+import { validate } from 'js-brasil';
 
 class UserController {
   async register(request, response) {
@@ -26,6 +27,12 @@ class UserController {
       return response
         .status(400)
         .json({ error: "a senha deve conter no mínimo 8 caracteres" });
+    }
+
+    console.log(validate.cpf(request.body.cpf));
+
+    if (validate.cpf(request.body.cpf)) {
+
     }
 
     const { id, ra, name, email } = await User.create(request.body);
