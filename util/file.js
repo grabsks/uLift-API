@@ -1,14 +1,15 @@
-const fs = require('fs');
+const Blob = require("cross-blob");
 
-const toBase64 = file => {
-    const bitmap = fs.readFileSync(file);
-    return new Buffer(bitmap).toString('base64');
+const toBlob = file => {
+    let buffer = Buffer.from(file.data);
+    let arrayBuffer = Uint8Array.from(buffer).buffer;
+    return new Blob([arrayBuffer], { type: file.mimetype })
 };
 
 export const toJson = file => {
     return {
         name: file.name,
         size: file.size,
-        body: toBase64(file),
+        body: toBlob(file),
     }
 };

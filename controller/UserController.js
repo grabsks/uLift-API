@@ -1,4 +1,5 @@
 import User from "../model/User";
+import { toJson } from "../util/file";
 
 class UserController {
   async register(request, response) {
