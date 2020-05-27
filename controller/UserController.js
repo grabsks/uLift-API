@@ -1,5 +1,5 @@
 import User from "../model/User";
-import { validate } from 'js-brasil';
+import validator from "node-cpf";
 
 class UserController {
   async register(request, response) {
@@ -29,15 +29,16 @@ class UserController {
         .json({ error: "a senha deve conter no mínimo 8 caracteres" });
     }
 
-    console.log(validate.cpf(request.body.cpf));
-
-    if (validate.cpf(request.body.cpf)) {
-
+    if (!validator.validate(request.body.cpf)) {
+      return response
+        .status(400)
+        .json({ error: "o CPF não é válido" });
     }
 
-    const { id, ra, name, email } = await User.create(request.body);
+    request.body.cpf = validator.unMask(request.body.cpf);
+    const { id, ra, name, email, cpf } = await User.create(request.body);
 
-    return response.status(201).json({ id, ra, name, email });
+    return response.status(201).json({ id, ra, name, email, cpf });
   }
 
   async search(request, response) {
