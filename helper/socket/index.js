@@ -7,7 +7,7 @@ class Socket {
     io.on("connection", (socket) => {
       socket.on("login", (id, callback) => {
         if (!(id in UserId)) {
-          socket.user = id;
+          socket.id = id;
           UserId[id] = socket;
 
           io.sockets.emit("user_update", Object.keys(UserId));
@@ -33,7 +33,9 @@ class Socket {
       socket.on("disconnect", () => {
         delete UserId[socket.id];
         io.sockets.emit("user_update", Object.keys(UserId));
+		
       });
+	 
     });
   }
 }
