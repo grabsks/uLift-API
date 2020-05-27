@@ -1,5 +1,5 @@
-import User from "../model/User";
 import validator from "node-cpf";
+import User from "../model/User";
 
 class UserController {
   async register(request, response) {
@@ -30,9 +30,7 @@ class UserController {
     }
 
     if (!validator.validate(request.body.cpf)) {
-      return response
-        .status(400)
-        .json({ error: "o CPF não é válido" });
+      return response.status(400).json({ error: "o CPF não é válido" });
     }
 
     request.body.cpf = validator.unMask(request.body.cpf);
