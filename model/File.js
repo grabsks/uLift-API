@@ -7,7 +7,7 @@ class File extends Model {
         name: Sequelize.STRING,
         size: Sequelize.INTEGER,
         file_type: Sequelize.ENUM("ra", "cnh", "profile"),
-        body: Sequelize.STRING,
+        body: Sequelize.BLOB,
       },
       {
         sequelize,
