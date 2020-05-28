@@ -1,15 +1,17 @@
 const Blob = require("cross-blob");
 
-const toBlob = file => {
-    let buffer = Buffer.from(file.data);
-    let arrayBuffer = Uint8Array.from(buffer).buffer;
-    return new Blob([arrayBuffer], { type: file.mimetype })
+const toBlob = (file) => {
+  const buffer = Buffer.from(file.data);
+  const arrayBuffer = Uint8Array.from(buffer).buffer;
+  return new Blob([arrayBuffer], { type: file.mimetype });
 };
 
-export const toJson = file => {
-    return {
-        name: file.name,
-        size: file.size,
-        body: toBlob(file),
-    }
+const toJson = (file) => {
+  return {
+    name: file.name,
+    size: file.size,
+    body: toBlob(file),
+  };
 };
+
+export default toJson;
