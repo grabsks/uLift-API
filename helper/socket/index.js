@@ -13,7 +13,7 @@ class Socket {
           this.users[user.id] = { socket, info: user };
 
           const nearUsers = this.getNearUsers(user);
-          io.sockets.emit("user_update", nearUsers);
+          socket.emit("user_update", nearUsers);
           callback(true);
         } else {
           callback(false);
@@ -35,7 +35,7 @@ class Socket {
 
       socket.on("send_location", (user, callback) => {
         const nearUsers = this.getNearUsers(user);
-        io.sockets.emit("user_update", nearUsers);
+        socket.emit("user_update", nearUsers);
         callback();
       });
 
