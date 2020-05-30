@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import validator from "node-cpf";
-import { format } from "prettier";
 import User from "../model/User";
 
 class UserController {
