@@ -1,4 +1,6 @@
 import * as Yup from "yup";
+import validator from "node-cpf";
+import { format } from "prettier";
 import User from "../model/User";
 
 class UserController {
@@ -45,7 +47,19 @@ class UserController {
         .json({ error: "A senha deve conter no mínimo 8 caracteres" });
     }
 
-    const user = await User.create({ ra, name, email, password, cpf, phone });
+    if (!validator.validate(cpf)) {
+      return response.status(400).json({ error: "o CPF não é válido" });
+    }
+
+    const formattedCpf = validator.unMask(cpf);
+    const user = await User.create({
+      ra,
+      name,
+      email,
+      password,
+      cpf: formattedCpf,
+      phone,
+    });
 
     return response.status(201).json(user);
   }
