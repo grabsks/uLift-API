@@ -37,11 +37,10 @@ class Socket {
           const near = this.getNearUsers(user);
 
           socket.emit("user_update", near);
-          console.log("receiving location")
+          console.log("receiving location");
         } else {
-          console.log(false)
+          console.log(false);
         }
-
       });
 
       socket.on("lift_request", (request, callback) => {
@@ -62,7 +61,7 @@ class Socket {
 
       const h = new Haversine(user.location, this.users[id].info.location);
       return h.isNear(1700);
-    })
+    });
 
     const near = nearIDS.map((value) => {
       return this.users[value].info;

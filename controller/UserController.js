@@ -2,7 +2,7 @@ import validator from "node-cpf";
 import jwt from 'jsonwebtoken';
 
 import User from "../model/User";
-import auth from '../config/auth';
+import auth from "../config/auth";
 import toJson from "../util/file";
 
 class UserController {
