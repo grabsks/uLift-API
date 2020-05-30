@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 import fileupload from "express-fileupload";
 
 import routes from "./router";
@@ -16,6 +17,7 @@ class App {
   middlewares() {
     this.server.use(express.json());
     this.server.use(fileupload());
+    this.server.use(cors({ origin: '*' }));
   }
 
   routes() {

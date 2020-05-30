@@ -1,5 +1,8 @@
 import validator from "node-cpf";
+import jwt from 'jsonwebtoken';
+
 import User from "../model/User";
+import auth from '../config/auth';
 import toJson from "../util/file";
 
 class UserController {
@@ -42,9 +45,10 @@ class UserController {
 
   async search(request, response) {
     const { id } = request.params;
+    const decodedID = jwt.verify(id, auth.secret);
 
     const user = await User.findOne({
-      where: { id },
+      where: { id: decodedID },
       attributes: ["id", "ra", "name", "email"],
     });
 

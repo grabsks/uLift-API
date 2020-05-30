@@ -11,19 +11,17 @@ class Socket {
         if (!this.users[user.id]) {
           socket.user = user.id;
           this.users[user.id] = { socket, info: user };
-
-          const nearUsers = this.getNearUsers(user);
-          socket.emit("user_update", nearUsers);
+          console.log("logged in", this.users[user.id].info);
           callback(true);
         } else {
           callback(false);
         }
       });
 
-      socket.on("logout", (user) => {
-        if (this.users[user.id]) {
-          delete this.users[user.id];
-          console.log(user.id, "logged out");
+      socket.on("logout", (id) => {
+        if (this.users[id]) {
+          delete this.users[id];
+          console.log(id, "logged out");
         }
       });
 
@@ -33,10 +31,17 @@ class Socket {
         callback();
       });
 
-      socket.on("send_location", (user, callback) => {
-        const nearUsers = this.getNearUsers(user);
-        socket.emit("user_update", nearUsers);
-        callback();
+      socket.on("send_location", (user) => {
+        if (this.users[user.id]) {
+          this.users[user.id].info.location = user.location;
+          const near = this.getNearUsers(user);
+
+          socket.emit("user_update", near);
+          console.log("receiving location")
+        } else {
+          console.log(false)
+        }
+
       });
 
       socket.on("lift_request", (request, callback) => {
@@ -51,15 +56,19 @@ class Socket {
   }
 
   getNearUsers(user) {
-    const nearUsers = this.users.filter((value) => {
-      if (value.info.id === user.id) {
-        return false;
-      }
-      const h = new Haversine(user.location, value.info.location);
+    const ids = Object.keys(this.users);
+    const nearIDS = ids.filter((id) => {
+      if (user.id === id) return false;
+
+      const h = new Haversine(user.location, this.users[id].info.location);
       return h.isNear(1700);
+    })
+
+    const near = nearIDS.map((value) => {
+      return this.users[value].info;
     });
 
-    return nearUsers;
+    return near;
   }
 }
 
