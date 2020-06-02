@@ -59,7 +59,7 @@ class UserController {
       cpf: formattedCpf,
       phone,
     });
-
+    delete user.password;
     return response.status(201).json(user);
   }
 
