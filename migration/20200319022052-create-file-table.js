@@ -23,7 +23,7 @@ module.exports = {
       },
 
       body: {
-        type: Sequelize.BLOB,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
 
