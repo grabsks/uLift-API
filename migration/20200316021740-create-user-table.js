@@ -8,11 +8,6 @@ module.exports = {
         autoIncrement: true,
       },
 
-      ra: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
       name: {
         type: Sequelize.STRING,
         allowNull: false,
