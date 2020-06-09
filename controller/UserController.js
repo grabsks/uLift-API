@@ -1,24 +1,37 @@
 import * as Yup from "yup";
 import validator from "node-cpf";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 import User from "../model/User";
+import File from "../model/File";
 import auth from "../config/auth";
 import toJson from "../util/file";
 
+function saveFiles(f, user_id) {
+  const files = Object.keys(f).map((type) => {
+    return {
+      ...toJson(f[type]),
+      file_type: type,
+      user_id,
+    };
+  });
+
+  files.forEach(async (file) => await File.create(file));
+}
+
 class UserController {
   async register(request, response) {
-    const { ra, name, email, password, cpf, phone } = request.body;
+    const { name, email, password, cpf, phone } = request.body;
 
     const schema = Yup.object().shape({
-      ra: Yup.string().required(),
       name: Yup.string().required(),
       email: Yup.string().email().required(),
+      password: Yup.string().required(),
       cpf: Yup.string().required(),
       phone: Yup.number().required(),
     });
 
-    schema.validate({ ra, name, email, password, cpf, phone }).catch(() => {
+    schema.validate({ name, email, password, cpf, phone }).catch(() => {
       return response
         .status(400)
         .json({ error: "Ocorreu um erro na validação dos dados enviados" });
@@ -56,14 +69,15 @@ class UserController {
 
     const formattedCpf = validator.unMask(cpf);
     const user = await User.create({
-      ra,
       name,
       email,
       password,
       cpf: formattedCpf,
       phone,
     });
+
     delete user.password;
+    saveFiles(request.files, user.id);
     return response.status(201).json(user);
   }
 
