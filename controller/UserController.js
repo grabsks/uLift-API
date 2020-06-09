@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 import validator from "node-cpf";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 import User from "../model/User";
-import File from '../model/File';
+import File from "../model/File";
 import auth from "../config/auth";
 import toJson from "../util/file";
 
@@ -12,11 +12,11 @@ function saveFiles(f, user_id) {
     return {
       ...toJson(f[type]),
       file_type: type,
-      user_id
+      user_id,
     };
   });
 
-  files.forEach(async file => await File.create(file));
+  files.forEach(async (file) => await File.create(file));
 }
 
 class UserController {
