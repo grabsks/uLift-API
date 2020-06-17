@@ -7,6 +7,7 @@ class Socket {
     this.users = [];
 
     io.on("connection", (socket) => {
+		console.log("connection")
       socket.on("login", (user, callback) => {
         if (!this.users[user.id]) {
           socket.user = user.id;
@@ -43,9 +44,10 @@ class Socket {
         }
       });
 
-      socket.on("lift_request", (request, callback) => {
-        this.users[request.To_id].socket("lift_request", request);
-        callback();
+      socket.on("lift_request", (request, callback)=>{
+        //io.sockets.emit("lift_response", (request));
+		this.users[request.To_id].socket.emit("lift_response", (request))
+		callback("abc")
       });
 
       socket.on("disconnect", () => {
