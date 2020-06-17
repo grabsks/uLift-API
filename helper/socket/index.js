@@ -7,7 +7,6 @@ class Socket {
     this.users = [];
 
     io.on("connection", (socket) => {
-		console.log("connection")
       socket.on("login", (user, callback) => {
         if (!this.users[user.id]) {
           socket.user = user.id;
